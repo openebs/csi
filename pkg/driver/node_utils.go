@@ -399,7 +399,7 @@ func (ns *node) prepareVolumeForNode(
 		return status.Error(codes.Internal, err.Error())
 	} else if !isCVCBound {
 		utils.TransitionVolList[volumeID] = apis.CStorVolumeAttachmentStatusWaitingForCVCBound
-		time.Sleep(10 * time.Second)
+		time.Sleep(5 * time.Second)
 		return errors.Errorf("Waiting for %s's CVC to be bound", volumeID)
 	}
 

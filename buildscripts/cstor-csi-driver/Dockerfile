@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN apt-get update; exit 0
 RUN apt-get -y install rsyslog xfsprogs ca-certificates

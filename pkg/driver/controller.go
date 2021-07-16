@@ -35,6 +35,7 @@ import (
 	"google.golang.org/grpc/status"
 	k8serror "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/klog"
 )
 
 // controller is the server implementation
@@ -388,4 +389,24 @@ func getNode(topo *csi.TopologyRequirement) (string, error) {
 		}
 	}
 	return "", nil
+}
+
+func (cs *controller) ControllerGetVolume(ctx context.Context, req *csi.ControllerGetVolumeRequest) (*csi.ControllerGetVolumeResponse, error) {
+
+	volume, err := utils.GetCStorVolume(req.GetVolumeId())
+	if err != nil {
+		return nil, err
+	}
+
+	klog.Infof("Healthy state: %s Volume: %t", volume.Name, volume.Status.Phase)
+	return &csi.ControllerGetVolumeResponse{
+		Volume: &csi.Volume{
+			VolumeId:      volume.Name,
+			CapacityBytes: volume.Spec.Capacity.MilliValue(),
+		},
+		Status: &csi.ControllerGetVolumeResponse_VolumeStatus{
+			//PublishedNodeIds: []string{volume.NodeID},
+			VolumeCondition: getVolumeCondition(volume),
+		},
+	}, nil
 }

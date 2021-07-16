@@ -3,7 +3,7 @@ module github.com/openebs/cstor-csi
 go 1.15
 
 require (
-	github.com/container-storage-interface/spec v1.2.0
+	github.com/container-storage-interface/spec v1.4.0
 	github.com/docker/go-units v0.4.0
 	github.com/golang/protobuf v1.4.3
 	github.com/google/uuid v1.1.2
@@ -24,13 +24,15 @@ require (
 	google.golang.org/grpc v1.27.1
 	k8s.io/api v0.20.2
 	k8s.io/apimachinery v0.20.2
-	k8s.io/client-go v11.0.1-0.20190409021438-1a26190bd76a+incompatible
+	k8s.io/client-go v0.20.2
 	k8s.io/code-generator v0.20.2
+	k8s.io/klog v1.0.0
 	k8s.io/kubernetes v1.20.2
 	k8s.io/utils v0.0.0-20201110183641-67b214c5f920
 )
 
 replace (
+	github.com/openebs/api/v2 => /home/prateek/gocode/src/github.com/openebs/api
 	k8s.io/api => k8s.io/api v0.20.2
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.20.2
 	k8s.io/apimachinery => k8s.io/apimachinery v0.20.2
